@@ -10,6 +10,12 @@ class Item:
     def __repr__(self):
         return self.name
 
+    def on_take(self):
+        print(f"You picked up {self.name}")
+
+    def on_drop(self):
+        print(f"You dropped {self.name}")
+
 
 class Key(Item):
     '''Key item for opening treasure chest.'''
@@ -31,5 +37,23 @@ class Armor(Item):
 
 class Treasure(Item):
     '''What you came looking for.'''
+    def __init__(self, name, description):
+        super().__init__(name, description)
+
+
+class Torch(Item):
+    '''To see in the dark.'''
+    def __init__(self, name, description):
+        super().__init__(name, description)
+
+
+class Coin(Item):
+    '''Money for bribing.'''
+    def __init__(self, name, description):
+        super().__init__(name, description)
+
+
+class Rope(Item):
+    '''A safety rope, an be used once and discarded.'''
     def __init__(self, name, description):
         super().__init__(name, description)
