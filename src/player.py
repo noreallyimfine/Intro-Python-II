@@ -10,14 +10,21 @@ class Player:
         self.name = name
         self.current_room = current_room
         self.items = []
-        self.n_to = None
-        self.s_to = None
-        self.e_to = None
-        self.w_to = None
 
     def travel(self, direction):
         # Move player in direction chosen
-        pass
+        if move == 'n':
+            player.current_room = player.current_room.n_to
+            print("You went North.")
+        elif move == 's':
+            player.current_room = player.current_room.s_to
+            print("You went South.")
+        elif move == 'w':
+            player.current_room = player.current_room.w_to
+            print("You went West.")
+        elif move == 'e':
+            player.current_room = player.current_room.e_to
+            print("You went East.")
 
     def get_item(self, item):
         if item in self.current_room.items:

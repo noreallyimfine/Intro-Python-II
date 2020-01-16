@@ -15,6 +15,13 @@ class Room:
             self.items = []
         else:
             self.items = items
+        self.n_to = None
+        self.s_to = None
+        self.e_to = None
+        self.w_to = None
+
+    def is_valid_move(self, move):
+        return hasattr(self, f'{move}_to')
 
     def __repr__(self):
         return f"Room({self.name}, {self.description}, {self.items})"
