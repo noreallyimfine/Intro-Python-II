@@ -11,19 +11,19 @@ class Player:
         self.current_room = current_room
         self.items = []
 
-    def travel(self, direction):
+    def travel(self, move):
         # Move player in direction chosen
         if move == 'n':
-            player.current_room = player.current_room.n_to
+            self.current_room = self.current_room.n_to
             print("You went North.")
         elif move == 's':
-            player.current_room = player.current_room.s_to
+            self.current_room = self.current_room.s_to
             print("You went South.")
         elif move == 'w':
-            player.current_room = player.current_room.w_to
+            self.current_room = self.current_room.w_to
             print("You went West.")
         elif move == 'e':
-            player.current_room = player.current_room.e_to
+            self.current_room = self.current_room.e_to
             print("You went East.")
 
     def get_item(self, item):
@@ -33,7 +33,10 @@ class Player:
             item.on_take()
             print(f"You are now holding {self.items}")
         else:
-            print(f'The {item} is nowhere is sight!')
+            if item in self.items:
+                print(f'You already have that item!')
+            else:
+                print(f'The {item} is nowhere is sight!')
 
     def drop_item(self, item):
         if item in self.items:

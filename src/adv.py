@@ -127,14 +127,37 @@ def main():
 
         # Print the current room description.
         player.current_room.print_description()
+        wait(1)
         # * Waits for user input and decides what to do.
         # ask for input until they choose an option
         move = input_move()
         # if length of move is 2
-        if len(move) == 1:
+        if len(move) == 2:
+            action, item = move
+            if action == 'get' or action == 'take':
+                if item in items.keys():
+                    player.get_item(items[item])
+                else:
+                    print("Hmm I don't recognize that item.")
+                wait(0.75)
+            elif action == 'drop':
+                if item in items.keys():
+                    player.drop_item(items[item])
+                else:
+                    print("Hmm I don't recognize that item.")
+                wait(0.75)
+        else:
             move = move[0]
             if move in directions:
-                player.travel(move)
+                if player.current_room.is_valid_move(move):
+                    player.travel(move)
+                else:
+                    print(
+                        """
+            Can't move that way - no path!
+                        """
+                    )
+                    # print cant move that way
             elif move == 'q':
                 print(
                     """
@@ -146,22 +169,6 @@ def main():
                     """
         That's not a valid choice.
                     """)
-        else:
-            # Parse first word to pick up to drop and carry out action
-            action, item = move
-            if action == 'get' or action == 'take':
-                player.get_item(items[item])
-            elif action == 'drop':
-                player.drop_item(items[item])
-            # ask for input until its a valid choice
-            valid_move = move_is_valid(player, move)
-            while not valid_move:
-                # ask for input saying cant go that way
-                move = input(
-                    """
-            Can't move in that direction! Select another choice (N, S, W, E):
-                    """).lower()
-                valid_move = move_is_valid(player, move)
 
         # Check for win
         if player.current_room == room['treasure']:
